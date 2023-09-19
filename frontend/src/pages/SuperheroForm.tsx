@@ -68,8 +68,11 @@ const SuperheroForm: React.FC<SuperheroFormProps> = ({ initialData, handleSubmit
                     label="Superpowers (comma-separated)"
                     variant="outlined"
                     name="superpowers"
-                    value={formData.superpowers}
-                    onChange={handleChange}
+                    value={formData.superpowers.join(',')}
+                    onChange={(e) => {
+                        const superpowers = e.target.value.split(',');
+                        setFormData({ ...formData, superpowers });
+                    }}
                 />
             </div>
 
@@ -90,8 +93,11 @@ const SuperheroForm: React.FC<SuperheroFormProps> = ({ initialData, handleSubmit
                     label="Hero Images (comma-separated URLs)"
                     variant="outlined"
                     name="heroimages"
-                    value={formData.heroimages}
-                    onChange={handleChange}
+                    value={formData.heroimages.join(',')}
+                    onChange={(e) => {
+                        const heroimages = e.target.value.split(',');
+                        setFormData({ ...formData, heroimages });
+                    }}
                 />
             </div>
 
