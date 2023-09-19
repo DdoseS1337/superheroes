@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createSuperhero } from '../app/superheroSlice';
 import { AppDispatch } from '../app/store';
 import { ISuperhero } from '../interfaces/superhero.interface';
+import { Button, TextField, Box } from '@mui/material';
 
 const AddSuperheroForm: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -27,37 +28,31 @@ const AddSuperheroForm: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Nickname:</label>
-                <input
-                    type="text"
+            <Box sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}>
+                <TextField
+                    label="Nickname"
+                    variant="outlined"
                     name="nickname"
                     value={formData.nickname}
                     onChange={handleChange}
                 />
-            </div>
-            <div>
-                <label>Real Name:</label>
-                <input
-                    type="text"
+                <TextField
+                    label="Real Name"
+                    variant="outlined"
                     name="real_name"
                     value={formData.real_name}
                     onChange={handleChange}
                 />
-            </div>
-            <div>
-                <label>Origin Description:</label>
-                <input
-                    type="text"
+                <TextField
+                    label="Origin Description"
+                    variant="outlined"
                     name="origin_description"
                     value={formData.origin_description}
                     onChange={handleChange}
                 />
-            </div>
-            <div>
-                <label>Superpowers:</label>
-                <input
-                    type="text"
+                <TextField
+                    label="Superpowers"
+                    variant="outlined"
                     name="superpowers"
                     value={formData.superpowers.join(',')}
                     onChange={(e) => {
@@ -65,20 +60,16 @@ const AddSuperheroForm: React.FC = () => {
                         setFormData({ ...formData, superpowers });
                     }}
                 />
-            </div>
-            <div>
-                <label>Catch Phrase:</label>
-                <input
-                    type="text"
+                <TextField
+                    label="Catch Phrase"
+                    variant="outlined"
                     name="catch_phrase"
                     value={formData.catch_phrase}
                     onChange={handleChange}
                 />
-            </div>
-            <div>
-                <label>Hero Images (comma-separated URLs):</label>
-                <input
-                    type="text"
+                <TextField
+                    label="Hero Images (URLs comma-separated)"
+                    variant="outlined"
                     name="heroimages"
                     value={formData.heroimages.join(',')}
                     onChange={(e) => {
@@ -86,8 +77,8 @@ const AddSuperheroForm: React.FC = () => {
                         setFormData({ ...formData, heroimages });
                     }}
                 />
-            </div>
-            <button type="submit">Submit</button>
+                <Button type="submit" variant="contained">Submit</Button>
+            </Box>
         </form>
     );
 };

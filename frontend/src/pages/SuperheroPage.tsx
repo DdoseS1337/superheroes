@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../app/store';
 import { fetchSuperhero } from '../app/superheroSlice';
 import SuperheroDetail from '../features/superheroes/SuperheroDetail';
-
+import { Container, Typography } from '@mui/material';
 const SuperheroPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const dispatch = useDispatch<AppDispatch>();
@@ -27,10 +27,12 @@ const SuperheroPage: React.FC = () => {
     }
 
     return (
-        <div>
-            <h2>Superhero Details</h2>
+        <Container maxWidth="md"> 
+            <Typography variant="h4" align="center" gutterBottom> 
+                Superhero Details
+            </Typography>
             <SuperheroDetail superhero={superhero} />
-        </div>
+        </Container>
     );
 };
 

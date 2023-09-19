@@ -1,16 +1,17 @@
 import React from 'react';
+import { AppBar, Container, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <header>
-      <h1>Superhero App</h1>
-      <nav>
-        <ul>
-          <li>Home</li>
-          <li>Superheroes</li>
-        </ul>
-      </nav>
-    </header>
+    <AppBar position="static">
+      <Container maxWidth="md">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Superhero App
+          </Typography>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 

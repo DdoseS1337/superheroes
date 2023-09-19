@@ -1,4 +1,3 @@
-// EditSuperheroPage.tsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../app/store';
@@ -6,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchSuperhero, updateSuperhero } from '../app/superheroSlice';
 import SuperheroForm from './SuperheroForm';
 import { ISuperhero } from '../interfaces/superhero.interface';
+import { Box, Typography, Button } from '@mui/material';
 
 const EditSuperheroPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -41,8 +41,8 @@ const EditSuperheroPage: React.FC = () => {
     }
 
     return (
-        <div>
-            <h2>Edit Superhero</h2>
+        <Box>
+            <Typography variant="h3">Edit Superhero</Typography>
             <SuperheroForm
                 initialData={superhero}
                 handleSubmit={handleUpdate}
@@ -52,7 +52,8 @@ const EditSuperheroPage: React.FC = () => {
                 superpowers={superhero.superpowers}
                 catch_phrase={superhero.catch_phrase}
                 heroimages={superhero.heroimages} />
-        </div>
+            <Button onClick={() => navigate(`/superhero/${id}`)}>Cancel</Button>
+        </Box>
     );
 };
 

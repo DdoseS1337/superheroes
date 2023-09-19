@@ -4,6 +4,14 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { deleteSuperhero } from '../../app/superheroSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Card, CardContent, ListItemIcon } from '@mui/material';
 
 interface SuperheroDetailProps {
     superhero: ISuperhero;
@@ -25,30 +33,33 @@ const SuperheroDetail: React.FC<SuperheroDetailProps> = ({ superhero }) => {
         navigate('/');
     }
     return (
-        <div>
-            <div>
-                <h2>Nickname: {nickname}</h2>
-                <p>Real Name: {real_name}</p>
-                <p>Catch phrase: {catch_phrase}</p>
-                <p>Origin description: {origin_description}</p>
-                <p>Superpowers:</p>
-                <ul>
+        <Card>
+            <CardContent>
+                <Typography variant="h4">Nickname: {nickname}</Typography>
+                <Typography variant="body1">Real Name: {real_name}</Typography>
+                <Typography variant="body1">Catch phrase: {catch_phrase}</Typography>
+                <Typography variant="body1">Origin description: {origin_description}</Typography>
+                <Typography variant="body1">Superpowers:</Typography>
+                <List>
                     {superpowers.map((power, index) => (
-                        <li key={index}>{power}</li>
+                        <ListItem key={index}>
+                            <ListItemIcon>
+                                {index + 1}
+                            </ListItemIcon>
+                            <ListItemText primary={power} />
+                        </ListItem>
                     ))}
-                </ul>
+                </List>
                 {heroimages.map((image, index) => (
-                    <img key={index} src={image} alt={`${superhero.nickname} - Image ${index}`} width="300"
-                        height="200" />
+                    <img key={index} src={image} alt={`${superhero.nickname} - Image ${index}`} width="300" height="200" />
                 ))}
-            </div>
+            </CardContent>
             <Link to={`/superhero/edit/${id}`}>
-                <button>Редагувати</button>
+                <Button startIcon={<EditIcon />}>Редагувати</Button>
             </Link>
-            <button onClick={handleBack}>Назад</button>
-            <button onClick={handleDelete}>Видалити</button>
-        </div>
-
+            <Button onClick={handleBack}>Назад</Button>
+            <Button startIcon={<DeleteIcon />} onClick={handleDelete}>Видалити</Button>
+        </Card>
     );
 };
 
