@@ -54,10 +54,10 @@ const SuperheroDetail: React.FC<SuperheroDetailProps> = ({ superhero }) => {
                     <img key={index} src={image} alt={`${superhero.nickname} - Image ${index}`} width="300" height="200" />
                 ))}
             </CardContent>
+            <Button onClick={handleBack}>Назад</Button>
             <Link to={`/superhero/edit/${id}`}>
                 <Button startIcon={<EditIcon />}>Редагувати</Button>
             </Link>
-            <Button onClick={handleBack}>Назад</Button>
             <Button startIcon={<DeleteIcon />} onClick={handleDelete}>Видалити</Button>
         </Card>
     );

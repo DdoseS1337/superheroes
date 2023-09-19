@@ -3,7 +3,7 @@ import { AppBar, Container, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ marginBottom: '2rem' }}>
       <Container maxWidth="md">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -11,7 +11,7 @@ const Header = () => {
           </Typography>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 };
 

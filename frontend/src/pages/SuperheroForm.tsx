@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ISuperhero } from '../interfaces/superhero.interface';
 import { TextField, Button } from '@mui/material';
+import schema from '../utils/validationSchema';
 
 interface SuperheroFormProps extends ISuperhero {
     initialData: {
@@ -24,6 +25,11 @@ const SuperheroForm: React.FC<SuperheroFormProps> = ({ initialData, handleSubmit
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const validationResult = schema.validate(formData);
+        if (validationResult.error) {
+            alert(`Validation Error: ${validationResult.error.message}`);
+            return;
+        }
         handleSubmit(formData);
     }
 

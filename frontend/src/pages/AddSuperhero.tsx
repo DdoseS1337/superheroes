@@ -4,6 +4,7 @@ import { createSuperhero } from '../app/superheroSlice';
 import { AppDispatch } from '../app/store';
 import { ISuperhero } from '../interfaces/superhero.interface';
 import { Button, TextField, Box } from '@mui/material';
+import schema from '../utils/validationSchema';
 
 const AddSuperheroForm: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -16,6 +17,8 @@ const AddSuperheroForm: React.FC = () => {
         heroimages: []
     });
 
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -23,7 +26,21 @@ const AddSuperheroForm: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(createSuperhero(formData));
+        const { error } = schema.validate(formData, { abortEarly: false });
+        console.log(error);
+        if (error) {
+            const validationErrors = error.details.reduce(
+                (acc, curr) => ({ ...acc, [curr.context!.key!]: curr.message }),
+                {}
+            );
+            setErrors(validationErrors);
+            alert('Будь ласка, заповніть всі дані вірно.');
+        } else if(Object.values(formData).every(value => value !== '')) {
+            setErrors({});
+            dispatch(createSuperhero(formData));
+        } else {
+            alert('Будь ласка, заповніть всі поля форми.');
+        }
     };
 
     return (
@@ -51,7 +68,7 @@ const AddSuperheroForm: React.FC = () => {
                     onChange={handleChange}
                 />
                 <TextField
-                    label="Superpowers"
+                    label="Superpowers (comma-separated)"
                     variant="outlined"
                     name="superpowers"
                     value={formData.superpowers.join(',')}
