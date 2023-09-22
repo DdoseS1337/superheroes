@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Request } from '@nestjs/common';
-import { SuperHeroService } from 'src/services/shero.service';
-import { SuperheroEntity } from 'src/database/models/superhero.model';
+import { SuperHeroService } from '../services/superhero.service';
+import { SuperheroEntity } from '../database/models/superhero.model';
 import { SuperHeroValidationService } from '../dto/dto.superhero'
 @Controller('superheroes')
 export class SuperHeroController {
@@ -17,11 +17,17 @@ export class SuperHeroController {
 
     @Get(':id')
     async GetHeroById(@Param('id') id: number) {
+        if (isNaN(id) || id <= 0) {
+            throw new BadRequestException('Invalid id');
+        }
         return await this.superHeroService.getHeroById(id);
     }
 
     @Delete(':id')
     async DeleteHeroById(@Param('id') id: number) {
+        if (isNaN(id) || id <= 0) {
+            throw new BadRequestException('Invalid id');
+        }
         return await this.superHeroService.deleteHero(id);
     }
 

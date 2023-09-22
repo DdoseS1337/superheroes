@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from 'src/database/configs/ormconfig';
-import { SuperHeroModule } from './shero.module';
+import config from '../database/configs/ormconfig';
+import { SuperHeroModule } from './superhero.module';
 
 @Module({
   imports: [

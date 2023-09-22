@@ -42,8 +42,6 @@ class SuperheroApi {
     async updateSuperhero(id: number, updatedSuperheroData: ISuperhero) {
 
         try {
-            console.log('herre' + id)
-            console.log(updatedSuperheroData);
             const response = await this.instance.put(`/${id}`, updatedSuperheroData);
             return response.data;
         } catch (error) {

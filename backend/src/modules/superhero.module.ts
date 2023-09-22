@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SuperHeroController } from 'src/controllers/shero.controller';
-import { SuperheroEntity } from 'src/database/models/superhero.model';
-import { SuperHeroValidationService } from 'src/dto/dto.superhero';
-import { SuperHeroService } from 'src/services/shero.service';
+import { SuperHeroController } from '../controllers/superhero.controller';
+import { SuperheroEntity } from '../database/models/superhero.model';
+import { SuperHeroValidationService } from '../dto/dto.superhero';
+import { SuperHeroService } from '../services/superhero.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([SuperheroEntity])],

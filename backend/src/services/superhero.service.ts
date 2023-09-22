@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SuperheroEntity } from 'src/database/models/superhero.model';
-import { ISuperhero } from 'src/interfaces/superhero.interface';
-import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { SuperheroEntity } from '../database/models/superhero.model';
+import { ISuperhero } from '../interfaces/superhero.interface';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SuperHeroService {
     constructor(@InjectRepository(SuperheroEntity) private superheroRepository: Repository<SuperheroEntity>) { }
+
     async getAllHero(): Promise<SuperheroEntity[]> {
-        return await this.superheroRepository.find();
+        return this.superheroRepository.find();
     }
 
     async getHeroById(id: number): Promise<SuperheroEntity> {
@@ -22,7 +23,7 @@ export class SuperHeroService {
     }
 
     async createHero(superhero: ISuperhero): Promise<SuperheroEntity> {
-        return await this.superheroRepository.save(superhero);
+        return this.superheroRepository.save(superhero);
     }
 
     async updateHero(id: number, superhero: ISuperhero): Promise<SuperheroEntity> {
@@ -30,7 +31,7 @@ export class SuperHeroService {
 
         if (existingHero) {
             await this.superheroRepository.update(id, superhero);
-            return await this.getHeroById(id);
+            return this.getHeroById(id);
         } else {
             throw new NotFoundException(`Superhero with ID ${id} not found`);
         }

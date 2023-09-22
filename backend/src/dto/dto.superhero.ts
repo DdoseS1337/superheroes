@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as Joi from 'joi';
-import { ISuperhero } from "src/interfaces/superhero.interface";
+import { ISuperhero } from "../interfaces/superhero.interface";
 
 export const superheroSchema = Joi.object({
     id: Joi.string().optional(),
