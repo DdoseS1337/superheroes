@@ -1,13 +1,14 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Request } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, 
+    Get, Param, Post, Put, Request, UsePipes } from '@nestjs/common';
 import { SuperHeroService } from '../services/superhero.service';
 import { SuperheroEntity } from '../database/models/superhero.model';
-import { SuperHeroValidationService } from '../dto/dto.superhero'
+import { SuperHeroValidationPipe } from '../dto/validation.pipes'
+import { superheroSchema } from '../dto/superhero.dto'
 @Controller('superheroes')
 export class SuperHeroController {
     constructor
         (
             private readonly superHeroService: SuperHeroService,
-            private readonly validationService: SuperHeroValidationService
         ) { }
 
     @Get()
@@ -32,21 +33,14 @@ export class SuperHeroController {
     }
 
     @Put(':id')
+    @UsePipes(new SuperHeroValidationPipe(superheroSchema))
     async UpdateHero(@Param('id') id: number, @Body() superhero: SuperheroEntity) {
-        if (this.validationService.validateSuperhero(superhero)) {
-            return await this.superHeroService.updateHero(id, superhero);
-        } else {
-            throw new BadRequestException('Invalid superhero data');
-        }
-
+        return await this.superHeroService.updateHero(id, superhero);
     }
 
     @Post()
+    @UsePipes(new SuperHeroValidationPipe(superheroSchema))
     async CreateHero(@Body() superhero: SuperheroEntity): Promise<SuperheroEntity> {
-        if (this.validationService.validateSuperhero(superhero)) {
-            return await this.superHeroService.createHero(superhero);
-        } else {
-            throw new BadRequestException('Invalid superhero data');
-        }
+        return await this.superHeroService.createHero(superhero);
     }
 }

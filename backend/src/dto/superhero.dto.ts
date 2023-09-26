@@ -1,6 +1,4 @@
-import { Injectable } from "@nestjs/common";
 import * as Joi from 'joi';
-import { ISuperhero } from "../interfaces/superhero.interface";
 
 export const superheroSchema = Joi.object({
     id: Joi.string().optional(),
@@ -12,10 +10,3 @@ export const superheroSchema = Joi.object({
     heroimages: Joi.array().items(Joi.string()).required(),
 });
 
-@Injectable()
-export class SuperHeroValidationService {
-    validateSuperhero(superhero: ISuperhero): boolean {
-        const { error } = superheroSchema.validate(superhero);
-        return !error;
-    }
-}

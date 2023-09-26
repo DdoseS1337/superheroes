@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SuperHeroController } from '../controllers/superhero.controller';
-import { SuperHeroValidationService } from '../dto/dto.superhero';
 import { BadRequestException } from '@nestjs/common';
 import { SuperheroEntity } from '../database/models/superhero.model';
 import { SuperHeroService } from '../services/superhero.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
+
+
 
 describe('SuperHeroController', () => {
     let superHeroController: SuperHeroController;
@@ -15,7 +16,6 @@ describe('SuperHeroController', () => {
             controllers: [SuperHeroController],
             providers: [
                 SuperHeroService,
-                SuperHeroValidationService,
                 {
                     provide: getRepositoryToken(SuperheroEntity),
                     useValue: {},
@@ -51,19 +51,8 @@ describe('SuperHeroController', () => {
 
     });
 
-    it('Create hero should throw BadRequestException on invalid data', async () => {
-        const superhero = {} as SuperheroEntity;
-        try {
-            await superHeroController.CreateHero(superhero);
-        } catch (e) {
-            expect(e).toBeInstanceOf(BadRequestException);
-        }
-    });
-
     it('should return a hero', async () => {
         const id = 5;
-
-
         const mockSuperhero =
             {
                 "nickname": "test",
@@ -115,15 +104,6 @@ describe('SuperHeroController', () => {
 
     });
 
-    it('Update hero should throw BadRequestException on invalid data', async () => {
-        const id = 5
-        const superhero = {} as SuperheroEntity;
-        try {
-            await superHeroController.UpdateHero(id, superhero);
-        } catch (e) {
-            expect(e).toBeInstanceOf(BadRequestException);
-        }
-    });
 
     it('should delete a hero', async () => {
         const id = 5;
